@@ -1,0 +1,251 @@
+info:
+  title: SE Gen AI Project
+  version: 1.0.0
+  description: >-
+    <h3>Software Engineering Project: Milestone 4</h3>
+
+    <h3>Task: API Endpoints Documentation</h3>
+
+    <h3>Course: BSCSS3001 - Software Engineering</h3>
+
+    <h3>Group: 20</h3>
+
+    <h3>Program: Online BSc in Programming and Data Science</h3>
+
+    <h3>Institute: Indian Institute of Technology, Madras</h3>
+
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.2.0    
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      description: Route for home page
+      responses:
+        '200':
+          description: Success
+      summary: Home Page
+  /api/activityquestion/clear:
+    delete:
+      description: Clear the answers of the current activity question
+      responses:
+        '200':
+          description: Success
+      summary: Clear Activity
+  /api/chat/clear:
+    delete:
+      description: Clears all chat history involving the chatbot and current user
+      responses:
+        '200':
+          description: Success
+      summary: Clear Chat History
+  /api/chat_chain:
+    post:
+      description: Endpoint to chain LLM conversations and generate responses.
+      responses:
+        '200':
+          description: Success
+      summary: Chain LLM conversation
+  /api/chatbot_page:
+    post:
+      description: Route for chatbot page
+      responses:
+        '200':
+          description: Success
+      summary: Chatbot for general questions
+  /api/complete_assignment_feedback:
+    post:
+      description: Endppoint to generate student custom feedback based on the questionnaire
+        and student responses.
+      responses:
+        '200':
+          description: Success
+      summary: Generate student custom feedback
+  /api/dashboard:
+    post:
+      description: Dashboard Page populated with details
+      responses:
+        '200':
+          description: Success
+      summary: Dashboard Page Contents
+  /api/dashboard/activityquestion:
+    post:
+      description: Activity Question Page populated with details
+      responses:
+        '200':
+          description: Success
+      summary: Activity Question Page Details
+  /api/dashboard/gradedassignment:
+    post:
+      description: Graded Assignment Page populated with details
+      responses:
+        '200':
+          description: Success
+      summary: Graded Assignment Page Details
+  /api/dashboard/lecture:
+    post:
+      description: Lecture Page populated with details
+      responses:
+        '200':
+          description: Success
+      summary: Lecture Page Contents
+  /api/dashboard/programmingassignment:
+    post:
+      description: Programming assignment Page populated with details
+      responses:
+        '200':
+          description: Success
+      summary: Programming Assignment Page Details
+  /api/get_transcript:
+    post:
+      description: Get the transcript of a given video lecture.
+      responses:
+        '200':
+          description: Success
+      summary: Fetches video transcript
+  /api/gradedassignment/clear:
+    delete:
+      description: Clear the answers of the current graded assignment
+      responses:
+        '200':
+          description: Success
+      summary: Clear Graded Assignment
+  /api/lecture_populate:
+    post:
+      description: Endpoint to populate lectures pages.
+      responses:
+        '200':
+          description: Success
+      summary: Populates lecture pages
+  /api/logout:
+    delete:
+      description: Clears all of the current users history and data
+      responses:
+        '200':
+          description: Success
+      summary: Clear All User Data
+  /api/per_qn_doubt:
+    post:
+      description: Endpoint to generate explanation for individual question with user
+        query.
+      responses:
+        '200':
+          description: Success
+      summary: Generates explanation for individual question based on doubt
+  /api/per_qn_explaination:
+    post:
+      description: Endpoint to generate explanation for individual question without
+        user query.
+      responses:
+        '200':
+          description: Success
+      summary: Generates explanation for individual question
+  /api/populate_assignments:
+    post:
+      description: Endpoint to populate assignments into the page.
+      responses:
+        '200':
+          description: Success
+      summary: Populates assignment
+  /api/process_regular_questions:
+    post:
+      description: Endpoint to process regular questions and generate responses from
+        LLM.
+      responses:
+        '200':
+          description: Success
+      summary: Chatbot for regular questions
+  /api/programmingassignment/clear:
+    delete:
+      description: Clear the answers of the current Programming Assignment
+      responses:
+        '200':
+          description: Success
+      summary: Clear Programming Assignment
+  /api/verify_assignments:
+    post:
+      description: Endpoint to verify the responses that the user has given.
+      responses:
+        '200':
+          description: Success
+      summary: Verifies assignment
+  /api/vid_database_fetch:
+    post:
+      description: Endpoint to fetch video data from database.
+      responses:
+        '200':
+          description: Success
+      summary: Fetches video data from database
+  /api/vid_keyword:
+    post:
+      description: Endpoint to fetch keywords mentioned in video.
+      responses:
+        '200':
+          description: Success
+      summary: Fetches video keywords
+  /api/vid_keyword_gen:
+    post:
+      description: Endpoint to generate keywords mentioned in video.
+      responses:
+        '200':
+          description: Success
+      summary: Generates video keywords
+  /api/vid_summary:
+    post:
+      description: Endpoint to fetch video summary.
+      responses:
+        '200':
+          description: Success
+      summary: Fetches video summary
+  /api/vid_summary_gen:
+    post:
+      description: Endpoint to generate video summary.
+      responses:
+        '200':
+          description: Success
+      summary: Generates video summary
+  /dashboard:
+    get:
+      description: Route for dashboard
+      responses:
+        '200':
+          description: Success
+      summary: Dashboard
+  /dashboard/activityquestion:
+    get:
+      description: Route for activity question page
+      responses:
+        '200':
+          description: Success
+      summary: Activity Question Page
+  /dashboard/chatbot:
+    get:
+      description: Route for chatbot interface
+      responses:
+        '200':
+          description: Success
+      summary: Central Chatbot
+  /dashboard/gradedassignment:
+    get:
+      description: Graded Assignment Page populated with details
+      responses:
+        '200':
+          description: Success
+      summary: Graded Assignment Page
+  /dashboard/lecture:
+    get:
+      description: Route for lecture page
+      responses:
+        '200':
+          description: Success
+      summary: Lecture Page
+  /dashboard/programmingassignment:
+    get:
+      description: Route for programming assignment page
+      responses:
+        '200':
+          description: Success
+      summary: Programming Assignment Page

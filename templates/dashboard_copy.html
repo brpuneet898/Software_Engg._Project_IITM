@@ -1,0 +1,99 @@
+{% extends 'base_template.html' %}
+
+
+{% block title %}
+
+Dashboard
+
+{% endblock %}
+
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}" />
+<style>
+  .welcome-box {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.course-section {
+    font-size: 16px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.course-section strong {
+    font-size: 18px;
+    color: #0056b3;
+}
+
+.course-section a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.course-section a:hover {
+    text-decoration: underline;
+}
+
+</style>
+{% endblock %}
+
+
+
+
+
+{% block content %}
+<div class="welcome-box">
+  <div class="content-box">
+      <p class="course-section">
+          <strong style="font-size: 20px;color: #333;">About the Course:</strong>
+      </p>
+      <div style="display: flex; flex-direction: row;justify-content: space-between;">
+      <p class="course-section">
+          <strong>Course Faculty:</strong><br />
+          Dr. Sridhar Iyer<br />
+          Department of Educational Technology, IIT Bombay<br /><br />
+          Dr. Prajish Prasad<br />
+          Computer Science, FLAME University
+      </p>
+
+      <p class="course-section">
+          <strong>Course Support Team:</strong><br />
+          Arup Kr. Chattopadhyay (PhD, MTech)<br />
+          Kubra (B.Tech)
+      </p>
+    </div>
+      <p class="course-section">
+          <strong>Study Material:</strong><br />
+          The learners are advised to make the best use of the interaction sessions with the course support members to clarify their doubts.<br />
+          Software Engineering: A Precise Approach – Dr. Pankaj Jalote<br />
+          Cooperative Software Development – Dr. Amy Ko<br />
+          Engineering Software as a Service: An Agile Approach Using Cloud Computing – Armando Fox, David Patterson
+      </p>
+
+      <p class="course-section">
+          To know more about the course syllabus, instructors, and course contents, please click on the link below:<br />
+          <a href="https://onlinedegree.iitm.ac.in/course_pages/BSCCS3002.html#9026">Course Syllabus and Details</a>
+      </p>
+
+      <p class="course-section">
+          Please click on the tab below to view the Course Specific Calendar:<br />
+          <a href="https://calendar.google.com/calendar/u/0?cid=Y181NmZ1NjRvaTZqbGgyNzJrajBnYzRibTQ2OEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">Course Calendar</a>
+      </p>
+      
+      <p class="course-section" style="margin-bottom: 100px;">
+          <strong>Developed By:</strong><br />
+          Samagya Rathi (21f3002675)<br />
+          Arshya Moonat (21f1004769)<br />
+          Yash Jain (22f1000823)<br />
+          Aryan Tiwari (21f1001076)<br />
+          Puneet (21f3002005)<br />
+          Atharva Dhamankar (21f1005520)<br />
+          Sanjeevani Mangla (21f1003044)
+      </p>
+  </div>
+</div>
+{% endblock %}

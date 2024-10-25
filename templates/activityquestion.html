@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Activity Question</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='activityquestion.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="div1">
+        <div class="div1_1">
+          <img
+            src="{{ url_for('static', filename='iitmlogo.png') }}"
+            alt="IITM Logo"
+            class="iitmlogo"
+          />
+        </div>
+        <div class="div1_2">
+          <h2>May 2024 - Software Engineering</h2>
+        </div>
+        <div class="div1_3">
+          <h3>21f3002005@ds.study.iitm.ac.in</h3>
+          <a href="{{ url_for('index') }}"
+            ><img
+              src="{{ url_for('static', filename='logout.png') }}"
+              alt="Logout"
+              class="logout"
+          /></a>
+        </div>
+      </div>
+      <div class="container">
+        <div class="div2">
+          <div class="icon">
+            <img
+              src="{{ url_for('static', filename='module.png') }}"
+              alt="Module"
+              class="sidebar_icon"
+            />
+          </div>
+          <div class="icon">
+            <img
+              src="{{ url_for('static', filename='grade.png') }}"
+              alt="Grade"
+              class="sidebar_icon"
+            />
+          </div>
+          <div class="icon">
+            <img
+              src="{{ url_for('static', filename='inbox.png') }}"
+              alt="Inbox"
+              class="sidebar_icon"
+              onclick="openGmail()"
+            />
+          </div>
+          <div class="icon">
+            <img
+              src="{{ url_for('static', filename='discuss.png') }}"
+              alt="Discuss"
+              class="sidebar_icon"
+              onclick="openDiscourse()"
+            />
+          </div>
+          <div class="icon">
+            <img
+              src="{{ url_for('static', filename='calc.png') }}"
+              alt="Calc"
+              class="sidebar_icon"
+              onclick="openDesmos()"
+            />
+          </div>
+          <div class="icon">
+            <a href="{{ url_for('chatbot') }}"
+              ><img
+                src="{{ url_for('static', filename='chatbot.png') }}"
+                alt="ChatBot"
+                class="sidebar_icon"
+            /></a>
+          </div>
+        </div>
+        <div class="div3">
+          <div class="div3_1">
+            <span>Course Introduction</span>
+            <a href="{{ url_for('dashboard')}}"
+              ><button class="explore1">Explore</button></a
+            >
+          </div>
+          <div class="div3_1">
+            <span>Week 1</span>
+            <button class="explore2" onclick="openModal('week1')">Explore</button>
+          </div>
+          <div class="div3_1">
+            <span>Week 2</span>
+            <button class="explore2" onclick="openModal('week1')">Explore</button>
+          </div>
+          <div class="div3_1">
+            <span>Week 3</span>
+            <button class="explore2" onclick="openModal('week1')">Explore</button>
+          </div>
+          <div class="div3_1">
+            <span>Week 4</span>
+            <button class="explore2" onclick="openModal('week1')">Explore</button>
+          </div>
+        </div>
+        <div class="div4">
+            <br>
+            <span class="topic">AQ 1.1</span>
+            <br><br>
+            <span class="question">1. The software can be divided into separably addressable components known as - </span><br>
+            <div class="options-container">
+              <input type="radio" id="option1" name="components" value="elements">
+              <label for="option1">Elements</label><br>
+              <input type="radio" id="option2" name="components" value="modules">
+              <label for="option2">Modules</label><br>
+              <input type="radio" id="option3" name="components" value="partitions">
+              <label for="option3">Partitions</label><br>
+              <input type="radio" id="option4" name="components" value="cases">
+              <label for="option4">Cases</label><br>
+            </div>
+            <div class="answer-container">
+              <textarea
+                class="answer-textarea"
+                placeholder="We divide software into small addressable components known as modules to reduce the workload for any one particular software developer. In this way, you get more productivity."
+              ></textarea>
+            </div>
+            <div class="question-container">
+              <textarea
+                class="question-textarea"
+                placeholder="Why we divide software into components? ..."
+              ></textarea>
+            </div>
+            <button class="send-button">Send</button>
+            <hr>
+            <span class="question">2. “Software Components run independent of each other and should not share any data or communicate
+with each other.” Is this statement true or false?</span><br>
+            <div class="options-container">
+              <input type="radio" id="option1" name="components" value="elements">
+              <label for="option1">True</label><br>
+              <input type="radio" id="option2" name="components" value="modules">
+              <label for="option2">False</label><br>
+            </div>
+            <div class="answer-container">
+              <textarea
+                class="answer-textarea"
+                placeholder="Yeah obviously, the modules of the software have to interact with each other all the time. Most of the time, they interact with each other with the help of interfaces. "
+              ></textarea>
+            </div>
+            <div class="question-container">
+              <textarea
+                class="question-textarea"
+                placeholder="Does modules of software interact with each other?"
+              ></textarea>
+            </div>
+            <button class="send-button">Send</button>
+            <hr>
+            <div class="analyse-solution">
+              <div class="analysis-container">
+                <textarea
+                  class="analysis-textarea"
+                  placeholder="Analyze your solutions with AI"
+                ></textarea>
+              </div>
+              <div class="analyse-button">
+                <button class="analysis">Analyze Solutions</button>
+              </div>
+            </div>
+            <hr>
+            <div class="submit-button">
+              <button class="submit">Check Answers</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Week 1 Content</h2>
+        <div class="button-column">
+          <a href="{{ url_for('lecture') }}"><button>Lecture 1</button></a>
+          <a href="{{ url_for('lecture') }}"><button>Lecture 2</button></a>
+          <a href="{{ url_for('activityquestion') }}"><button>AQ1.2</button></a>
+          <a href="{{ url_for('lecture') }}"><button>Lecture 3</button></a>
+          <a href="{{ url_for('activityquestion') }}"><button>AQ1.3</button></a>
+          <a href="{{ url_for('programmingassignment') }}"
+            ><button>Prog. Assignment</button></a
+          >
+          <a href="{{ url_for('gradedassignment') }}"
+            ><button>Graded Assignment</button></a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function openDesmos() {
+      window.open("https://www.desmos.com/scientific", "_blank");
+    }
+
+    function openModal() {
+      document.getElementById("myModal").style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById("myModal").style.display = "none";
+    }
+
+    function openDiscourse() {
+      window.open("https://discourse.onlinedegree.iitm.ac.in/", "_blank");
+    }
+
+    function openGmail() {
+      window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
+    }
+  </script>
+</html>

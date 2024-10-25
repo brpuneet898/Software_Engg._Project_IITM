@@ -1,0 +1,111 @@
+/* Improved CSS */
+
+.question {
+  font-size: 1rem; /* Consistent font size */
+  padding-left: 2.5rem; /* Use rem units for scalability */
+  margin-bottom: 1rem; /* Add margin for spacing */
+}
+
+.question-container {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.question-textarea {
+  width: calc(100% - 2.5rem); /* Full width minus padding */
+  height: 3rem;
+  padding: 0.5rem;
+  margin-left: 2.5rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da; /* Bootstrap border color */
+  border-radius: 0.375rem; /* Bootstrap border radius */
+  box-sizing: border-box;
+}
+
+.send-button {
+  height: 2.5rem;
+  margin-left: 2.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  border: 1px solid #000; /* Bootstrap border color */
+  border-radius: 0.375rem;
+  background-color: #000; /* Black color */
+  color: #fff; /* White text */
+  cursor: pointer;
+}
+
+.answer-container {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.answer-textarea {
+  width: calc(100% - 2.5rem); /* Full width minus padding */
+  height: 4rem;
+  padding: 0.5rem;
+  margin-left: 2.5rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da; /* Bootstrap border color */
+  border-radius: 0.375rem;
+  box-sizing: border-box;
+}
+
+.options-container {
+  padding-left: 2.5rem;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.5rem; /* Adjusted for better alignment */
+}
+
+label {
+  font-size: 1rem; /* Consistent font size */
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label {
+  font-weight: bold;
+  color: #333;
+}
+
+.analyse-solution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.analysis-container {
+  width: calc(100% - 2.5rem); /* Full width minus padding */
+  margin-top: 1rem;
+}
+
+.analysis-textarea {
+  width: calc(100% - 2.5rem); /* Full width minus padding */
+  height: 4rem;
+  margin-left: 2.5rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da; /* Bootstrap border color */
+  border-radius: 0.375rem;
+  box-sizing: border-box;
+}
+
+.analyse-button {
+  margin-top: 1rem;
+}
+
+.analysis, .submit {
+  background-color: #000; /* Black color */
+  color: #fff; /* White text */
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border: 2px solid #000; /* Black border */
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.submit {
+  margin-left: 2.5rem;
+}

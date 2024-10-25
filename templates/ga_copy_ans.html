@@ -1,0 +1,212 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+
+Graded Assignment
+
+{% endblock %}
+
+{% block links %}
+
+<link
+rel="stylesheet"
+href="{{ url_for('static', filename='gradedassignment.css') }}"
+/>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<div class="div4">
+    <br>
+    <span class="topic">Graded Assignment {{week_id}}</span>
+    <br><br>
+
+    <form id="quizForm" action="/submit" method="POST">
+      {% set count = namespace(value=0) %}
+      {% for index, q in weeks_asg.items() %}
+          <div>
+              <p>{{ q[0] }}</p>
+              <br>
+
+              {% for index2, optionss in q[1].items() %}
+                {% set count.value = count.value + 1 %}
+                <!-- <div>{{ optionss }}</div><br> -->
+              
+               <div class="question">
+                <h4>{{ count.value }}. {{ optionss[0] }} </h4><br>
+                 
+              
+               <!-- <div>{{ optionss[1] }} </div> -->
+               
+                {% for soln in optionss[1] %}
+                  
+                  <!-- <div>{{ soln }}</div><br> -->
+
+                  <input type="checkbox" name="question-{{count.value}}" value="{{soln}}">{{soln}}</input>
+                  <br>
+                {% endfor %} 
+                <div>{{results[index][index2]}}</div>
+                <div class="answer-container">
+                  <textarea id="doubt_content_{{count.value}}"
+                    class="answer-textarea"
+                    placeholder="Ask your question here..."
+                  ></textarea>
+                </div>
+                <div id="doubt_soln_{{count.value}}" ></div>
+              
+              <button  id="doubt-{{count.value}}" class="send-button doubt_button"   data-week="{{ week_id }}">Send</button>
+              
+               
+
+                </div>                   
+              {% endfor %}              
+              
+
+          </div>
+      {% endfor %}
+      <input type="hidden" name="week" value="{{week_id}}">
+
+
+
+      <div class="submit-button">
+        <input class="submit" type="submit" value="Check Answers">
+      </div> 
+           
+  </form>
+
+  <br><br>
+
+  <div class="analyse-button">
+    <button class="analysis" id="analyzeButton" >Analyze Solutions</button>
+  </div>  
+  <div id="assignment_analysis" ></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+<script>
+  $(document).ready(function() {
+      $('#analyzeButton').on('click', function() {
+        event.preventDefault(); 
+          $.ajax({
+              type: 'POST',
+              url: '/analyze',
+              data: $('#quizForm').serialize(),
+              success: function(response) {
+                        $('#assignment_analysis').empty().text(response);
+                    },
+              error: function() {
+                  alert('An error occurred while processing your request.');
+              }
+          });
+      });
+      // Handler for each doubt button
+      $('.doubt_button').on('click', function() {
+        event.preventDefault(); 
+                const questionIndex = $(this).attr('id').replace('doubt-', '');
+                const weekId = $(this).data('week');
+                const responseBlock = $('#doubt_soln_' + questionIndex);
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/analyze_doubt',
+                    data: { question_index: questionIndex ,
+                            doubt: $('#doubt_content_' + questionIndex).val(),
+                            week: weekId
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        $(responseBlock).empty().text(response);
+                        
+                    },
+                    error: function() {
+
+                        console.log("response")
+                        alert('An error occurred while processing your request.');
+                    }
+                });
+            });    
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}        

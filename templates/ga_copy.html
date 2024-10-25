@@ -1,0 +1,346 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+Graded Assignment
+{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('static', filename='gradedassignment.css') }}" />
+<style>
+  /* Base styles */
+  body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* Title styling */
+  .topic {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* Form and question styling */
+  form {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .question {
+    margin-bottom: 20px;
+  }
+
+  .question h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 10px;
+    margin-left: 0;
+  }
+
+  textarea {
+    width: 100%;
+    max-width: 600px;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+  .submit-button,
+  .analyse-button {
+    display: inline-block;
+    margin-top: 10px;
+  }
+
+  .submit-button button,
+  .analyse-button button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #000;
+    border: 1px solid #000;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .submit-button button:hover,
+  .analyse-button button:hover {
+    background-color: #333;
+  }
+
+  /* Analysis container styling */
+  #assignment_analysis {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+
+  .message-box-container {
+    width: 100%;
+    max-width: 600px;
+    margin-left: 40px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .message-box {
+    display: flex;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: #f9f9f9;
+  }
+
+  .message-box textarea {
+    flex: 1;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  .send-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+  }
+
+  .send-button img.send {
+    width: 20px;
+    height: 20px;
+  }
+
+  .send-button img.clear {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+  }
+
+  .doubt-solution-box {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    color: #333;
+    max-width: 600px;
+    margin-left: 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .feedback {
+    font-weight: bold;
+  }
+
+  .status-correct {
+    color: green;
+    font-weight: bold;
+  }
+
+  .status-partially-correct {
+    color: orange;
+    font-weight: bold;
+  }
+
+  .status-incorrect {
+    color: red;
+    font-weight: bold;
+  }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="topic">Graded Assignment {{ week_id }}</div>
+
+  <form id="quizForm" action="/submit" method="POST">
+    {% set count = namespace(value=0) %}
+    {% for index, q in weeks_asg.items() %}
+    <div class="question">
+      <p>{{ q[0] }}</p>
+      {% for index2, optionss in q[1].items() %}
+      {% set count.value = count.value + 1 %}
+      <h4>{{ count.value }}. {{ optionss[0] }}<i style="margin-left: 10px;">(1 Point)</i></h4>
+      {% for soln in optionss[1] %}
+      <div>
+        <label>
+          <input type="checkbox" name="question-{{ count.value }}" value="{{ soln }}"
+          {% if results.get(index, {}).get(index2, {}).status in ['Correct', 'Incorrect', 'Partially Correct' ] %}
+            {% if soln in selected_options.getlist('question-' ~ count.value) %}checked{% endif %}
+          {% endif %}>
+          {{ soln }}
+        </label>
+      </div>      
+      {% endfor %}
+      {% if results %}
+      {% set result = results[index][index2] %}
+      {% if result.status == "Correct" %}
+      <div class="status-correct">Correct</div>
+      <div style="color: green; margin-top: 5px; margin-bottom: 5px;">
+        Selected options: <br>
+        {% for opt in result.selected %}
+        <div>{{ loop.index }}. {{ opt }}</div>
+        {% endfor %}
+      </div>
+      {% elif result.status == "Partially Correct" %}
+      <div class="status-partially-correct">Partially Correct</div>
+      <div style="color: orange; margin-top: 5px; margin-bottom: 5px;">
+        Selected options: <br>
+        {% for opt in result.selected %}
+        <div>{{ loop.index }}. {{ opt }}</div>
+        {% endfor %}
+      </div>
+      {% elif result.status == "Incorrect" %}
+      <div class="status-incorrect">Incorrect</div>
+      <div style="color: red; margin-top: 5px; margin-bottom: 5px;">
+        Selected options: <br>
+        {% for opt in result.selected %}
+        <div>{{ loop.index }}. {{ opt }}</div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div>{{ result.status }}</div>
+      {% endif %}
+      {% endif %}
+      <div class="message-box-container">
+        <div class="message-box">
+          <textarea id="doubt_content_{{ count.value }}" placeholder="Ask your question here..." rows="2"></textarea>
+          <button id="doubt-{{ count.value }}" class="send-button doubt_button" data-week="{{ week_id }}">
+            <img src="{{ url_for('static', filename='send.png') }}" alt="Send" class="send">
+          </button>
+        </div>
+      </div>
+      <div id="doubt_soln_{{ count.value }}" class="doubt-solution-box"></div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    <input type="hidden" name="week" value="{{ week_id }}">
+    <div style="display: flex; flex-direction: row; justify-content: center;">
+      <div class="submit-button" style="margin-right:10px ;">
+        <button type="button" class="submit" id="submitButton">Check Answers</button>
+      </div>
+      <div class="analyse-button" style="margin-right:10px ;">
+        <button class="analysis">
+          <a href="{{ url_for('assignments.gradedassignmentreset', week_id=week_id) }}"
+            style="text-decoration: none; color: #fff;">Reset</a>
+        </button>
+      </div>
+      <div class="analyse-button" style="margin-right:10px ;">
+        <button class="analysis" id="analyzeButton">Analyze Solutions</button>
+      </div>
+    </div>
+  </form>
+
+  <div id="assignment_analysis"></div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('#submitButton').on('click', function (event) {
+      event.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: '/submit',
+        data: $('#quizForm').serialize(),
+        success: function (response) {
+          $('.container').html($(response).find('.container').html());
+        },
+        error: function () {
+          alert('An error occurred while processing your request.');
+        }
+      });
+    });
+
+    $('#analyzeButton').on('click', function (event) {
+      event.preventDefault();
+
+      // Check if all questions are answered
+      let allAnswered = true;
+      $('input[type="checkbox"]').each(function() {
+        const name = $(this).attr('name');
+        if ($(`input[name="${name}"]:checked`).length === 0) {
+          allAnswered = false;
+          return false; // Exit each loop
+        }
+      });
+
+      if (!allAnswered) {
+        alert('Please answer all questions before analyzing solutions.');
+        return;
+      }
+
+      $.ajax({
+        type: 'POST',
+        url: '/analyze',
+        data: $('#quizForm').serialize(),
+        success: function (response) {
+          // Assuming response contains "results" and "feedback"
+          const results = response.results;
+          const feedback = response.feedback;
+
+          // Update the quiz form with results
+          $('.container').html($(response).find('.container').html());
+
+          // Show analysis feedback
+          $('#assignment_analysis').empty().html(feedback);
+
+          // Scroll to the bottom of the page
+          window.scrollTo(0, document.body.scrollHeight);
+        },
+        error: function () {
+          alert('An error occurred while processing your request.');
+        }
+      });
+    });
+
+    $('.doubt_button').on('click', function (event) {
+      event.preventDefault();
+      const questionIndex = $(this).attr('id').replace('doubt-', '');
+      const weekId = $(this).data('week');
+      const responseBlock = $('#doubt_soln_' + questionIndex);
+
+      $.ajax({
+        type: 'POST',
+        url: '/analyze_doubt',
+        data: {
+          question_index: questionIndex,
+          doubt: $('#doubt_content_' + questionIndex).val(),
+          week: weekId
+        },
+        success: function (response) {
+          $(responseBlock).empty().html(response);
+        },
+        error: function () {
+          alert('An error occurred while processing your request.');
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}
